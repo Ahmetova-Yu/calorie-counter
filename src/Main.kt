@@ -1,5 +1,6 @@
 fun main() {
     println("Вас приветствует 'Счетчик калорий'")
+    val sleepTracker = SleepTracker()
 
     while (true) {
         printMenu()
@@ -24,8 +25,6 @@ fun main() {
             continue
         }
 
-        val sleepTracker = SleepTracker()
-
         when(command) {
             MenuCommand.ADD_STEPS -> sleepTracker.addNewNumberStepsPerDay()
             MenuCommand.CHANGE_GOAL -> {
@@ -33,7 +32,7 @@ fun main() {
                 val goal = readlnOrNull()?.toIntOrNull()
                 if (goal == null) {
                     println("Ошибка. Введите число")
-                    return
+                    continue
                 }
 
                 sleepTracker.goalByStepsPerDay = goal

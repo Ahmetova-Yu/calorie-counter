@@ -3,9 +3,6 @@ class SleepTracker() {
     private var _goalByStepsPerDay :Int = 10_000
     private val converter = Converter()
 
-    val monthToData: List<MonthData>
-        get() = _monthToData.toList()
-
     var goalByStepsPerDay: Int
             get() = _goalByStepsPerDay
             set(value) {
@@ -33,14 +30,14 @@ class SleepTracker() {
     fun inputDataAndValid() : Triple<Int, Int, Int>? {
         println("Введите номер месяца(1-12): ")
         val numOfMonth = readlnOrNull()?.toIntOrNull()
-        if (numOfMonth == null || numOfMonth !in 0..13) {
+        if (numOfMonth == null || numOfMonth !in 1..12) {
             println("Номер вводимого месяца должен быть от 1 до 12 включительно")
             return null
         }
 
         println("Введите номер дня(1-30): ")
         val numOfDay = readlnOrNull()?.toIntOrNull()
-        if (numOfDay == null || numOfDay !in 0..31) {
+        if (numOfDay == null || numOfDay !in 1..30) {
             println("Номер вводимого дня должен быть от 1 до 30 включительно")
             return null
         }
@@ -59,7 +56,7 @@ class SleepTracker() {
     fun printStatistic() {
         println("Введите номер месяца(1-12): ")
         val numOfMonth = readlnOrNull()?.toIntOrNull()
-        if (numOfMonth == null || numOfMonth !in 0..13) {
+        if (numOfMonth == null || numOfMonth !in 1..12) {
             println("Номер вводимого месяца должен быть от 1 до 12 включительно")
             return
         }
@@ -69,23 +66,17 @@ class SleepTracker() {
         println("Количество пройденных шагов по дням: ")
         monthData.printDaysAndStepsFromMonth()
 
-        println("Общее количество шагов за месяц")
         val sum = monthData.sumStepsFromMonth()
-        print(sum)
+        println("\nОбщее количество шагов за месяц: ${sum}")
 
-        println("Максимальное пройденное количество шагов в месяце")
-        print(monthData.maxSteps())
+        println("Максимальное пройденное количество шагов в месяце: ${monthData.maxSteps()}")
 
-        println("Среднее кол-во шагов: ")
-        println(sum / monthData.days.size)
+        println("Среднее кол-во шагов: ${monthData.days.average()}")
 
-        println("Пройденная дистанция (в километрах): ")
-        print(converter.convertToKm(sum))
+        println("Пройденная дистанция (в километрах): ${converter.convertToKm(sum)}")
 
-        println("Количество сожжённых килокалорий: ")
-        print(converter.convertStepsToKilocalories(sum))
+        println("Количество сожжённых килокалорий: ${converter.convertStepsToKilocalories(sum)}")
 
-        println("Лучшая серия")
-        print(monthData.bestSeries(_goalByStepsPerDay))
+        println("Лучшая серия: ${monthData.bestSeries(_goalByStepsPerDay)}")
     }
 }

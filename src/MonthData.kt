@@ -1,5 +1,5 @@
 class MonthData {
-    val days = MutableList(30) { 0 }
+    var days = MutableList(30) { 0 }
 
     fun printDaysAndStepsFromMonth() {
         days.forEachIndexed { index, steps ->
