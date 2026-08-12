@@ -24,9 +24,21 @@ fun main() {
             continue
         }
 
+        val sleepTracker = SleepTracker()
+
         when(command) {
             MenuCommand.ADD_STEPS -> println("Кол-во шагов за день")
-            MenuCommand.CHANGE_GOAL -> println("Изменить цель")
+            MenuCommand.CHANGE_GOAL -> {
+                println("Введите новую цель: ")
+                val goal = readlnOrNull()?.toIntOrNull()
+                if (goal == null) {
+                    println("Ошибка. Введите число")
+                    return
+                }
+
+                sleepTracker.goalByStepsPerDay = goal
+                println("Цель изменена на $goal")
+            }
             MenuCommand.STATISTICS -> println("Статистика")
             MenuCommand.EXIT -> {
                 println("Выход")

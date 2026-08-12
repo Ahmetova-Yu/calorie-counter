@@ -1,11 +1,19 @@
-import java.time.Month
-import java.util.Scanner
-
-class SleepTracker(private val scanner: Scanner) {
+class SleepTracker() {
     private val _monthToData = Array(12) { MonthData() }
+    private var _goalByStepsPerDay :Int = 10_000
 
     val monthToData: List<MonthData>
         get() = _monthToData.toList()
+
+    var goalByStepsPerDay: Int
+            get() = _goalByStepsPerDay
+            set(value) {
+                if (value <= 0) {
+                    println("Количество шагов должно быть больше 0")
+                    return
+                }
+                _goalByStepsPerDay = value
+            }
 
     fun addNewNumberStepsPerDay() {
         val inputData = inputDataAndValid()
@@ -21,7 +29,7 @@ class SleepTracker(private val scanner: Scanner) {
         println("Шаги сохранены!")
     }
 
-    private fun inputDataAndValid() : Triple<Int, Int, Int>? {
+    fun inputDataAndValid() : Triple<Int, Int, Int>? {
         println("Введите номер месяца(1-12): ")
         val numOfMonth = readlnOrNull()?.toIntOrNull()
         if (numOfMonth == null || numOfMonth !in 0..13) {
